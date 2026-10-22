@@ -36,7 +36,6 @@ This project investigates whether students perform differently on a short quiz d
 |---|---|
 | `*.Rmd` | R Markdown source: full analysis code and write-up |
 | `*.html` | Knitted HTML output of the analysis |
-| `*_report.pdf` | Full written project report |
 | `*_presentation.*` | Project presentation slides |
 | `quiz_data.csv` | Raw dataset (student ID, instruction mode, note-taking method, quiz score) |
 
