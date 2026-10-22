@@ -1,0 +1,222 @@
+---
+title: "Exam"
+author: "Fukuro"
+date: "2026-09-27"
+output: html_document
+---
+
+# Setting up library
+
+```{r, message=FALSE, warning=FALSE}
+#set up library
+library(tidyverse)
+library(mosaic)
+```
+
+# import dataset
+```{r}
+quiz_data <- read.csv("~/Data for R/Project/quiz_data.csv", stringsAsFactors=TRUE)
+```
+
+# 1. Main Question
+
+The main purpose of this experiment is to determine whether students perform differently on a short quiz depending on the mode of instruction and the method they use to take notes.
+
+The main research question:
+
+How do instruction mode and note-taking method affect students' quiz performance, and does the effect of note-taking method depend on whether instruction is delivered virtually or in person?
+
+# 2. Response Variable and How It Is Measured
+
+The response variable in this experiment is each participant's quiz score. The response variable is quantitative and is measured as the total number of correct answers out of 10. 
+
+# 3. Factors and Levels
+
+Factor A: Instruction Mode
+1.	Virtual
+2.	In-person
+
+Factor B: Note-Taking Method
+1.	Handwritten notes
+2.	Laptop notes
+3.	No notes
+
+Therefore, this experiment uses a 2 x 3 factorial design. 
+
+# 4. Randomization
+
+Participants are randomly assigned to six equally sized treatment groups to minimize selection bias and support valid cause-and-effect conclusions about quiz scores.
+
+# 5. Replication
+```{r}
+table(quiz_data$instruction_mode, quiz_data$note_taking)
+```
+Each of the six treatment combinations is applied to 12 students, resulting in 72 participants in a balanced factorial design that allows experimental error and variation in quiz scores to be estimated.
+
+# 6. Hypotheses
+
+All three hypotheses will be tested using a significance level of 0.05.
+
+## Interaction Between Instruction Mode and Note-Taking Method
+
+Null hypothesis (H0): There is no interaction between instruction mode and note-taking method. The effect of note-taking method on mean quiz score does not depend on whether instruction is virtual or in person.
+
+Alternative hypothesis (Ha): There is an interaction between instruction mode and note-taking method. The effect of note-taking method on mean quiz score depends on whether instruction is virtual or in person.
+
+## Main Effect of Instruction Mode
+
+Null hypothesis (H0): The mean quiz score is the same for virtual and in-person instruction.
+
+Alternative hypothesis (Ha): The mean quiz score differs between virtual and in-person instruction.
+
+## Main Effect of Note-Taking Method
+
+Null hypothesis (H0): The mean quiz score is the same for handwritten notes, laptop notes, and no notes.
+
+Alternative hypothesis (Ha): At least one note-taking method has a different mean quiz score.
+
+
+# 7. ANOVA with Interaction
+
+The model:
+
+Quiz Score = Overall Mean + Instruction Mode Effect + Note-Taking Method Effect + Interaction Effect + Random Error
+
+```{r}
+quiz_model <- aov(
+  quiz_score ~ instruction_mode * note_taking,
+  data = quiz_data
+)
+```
+# 8. F-Tests
+
+```{r}
+summary(quiz_model)
+```
+## Interaction Between Instruction Mode and Note-Taking Method
+The interaction test resulted in F(2, 66) = 1.044 and p = 0.3578
+
+## Main Effect of Instruction Mode
+The instruction-mode test resulted in F(1, 66) = 0.005 and p = 0.9425
+
+## Main Effect of Note-Taking Method
+The note-taking-method test resulted in F(2, 66) = 6.720 and p = 0.0022
+
+# 9. Interaction Graph
+
+```{r}
+interaction.plot(
+  quiz_data$note_taking,
+  quiz_data$instruction_mode,
+  quiz_data$quiz_score,
+  xlab = "Note-Taking Method",
+  ylab = "Mean Quiz Score",
+  trace.label = "Instruction Mode"
+)
+```
+
+# 10. Designing the Experiment
+
+The experiment used a balanced 2 × 3 factorial design with two factors: instruction mode (virtual or in-person) and note-taking method (handwritten, laptop, or no notes). A total of 72 students were assigned to six treatment combinations, with 12 students per group, and completed the same video and 10-question quiz. A two-way ANOVA tests both factors’ main effects and their interaction.
+
+# 11. Conducting the Experiment
+
+Each participant was assigned to one of six treatment combinations and watched the same AI-scams video either virtually or in person, using handwritten notes, laptop notes, or no notes. Afterward, participants completed the same 10-question quiz, scored from 0 to 10. Consistent materials, questions, and scoring helped isolate the effects of instruction mode and note-taking method.
+
+# 12. Collecting Real Data
+
+Data were collected from 72 participants, each assigned an instruction mode (virtual or in-person) and a note-taking method (handwritten, laptop, or no notes). Each participant completed the same 10-question quiz, and their ID, assigned conditions, and score (0–10) were recorded. The dataset was checked for consistent labels, valid scores, and missing results, with 12 participants in each treatment combination.
+
+# 13. Analyzing Real Data
+
+Data Overview
+```{r}
+head(quiz_data)
+str(quiz_data)
+summary(quiz_data)
+```
+
+Checking missing value:
+```{r}
+colSums(is.na(quiz_data))
+```
+Score range:
+```{r}
+range(quiz_data$quiz_score)
+```
+Check replication:
+```{r}
+table(
+  quiz_data$instruction_mode,
+  quiz_data$note_taking
+)
+```
+
+Main descriptive statistics:
+```{r}
+quiz_data %>%
+  group_by(instruction_mode, note_taking) %>%
+  summarize(
+    n = n(),
+    mean = mean(quiz_score),
+    sd = sd(quiz_score)
+  )
+```
+Boxplots:
+
+```{r}
+ggplot(
+  quiz_data,
+  aes(
+    x = note_taking,
+    y = quiz_score,
+    fill = instruction_mode
+  )
+) +
+  geom_boxplot() +
+  labs(
+    title = "Quiz Scores by Instruction Mode and Note-Taking Method",
+    x = "Note-Taking Method",
+    y = "Quiz Score",
+    fill = "Instruction Mode"
+  )
+```
+
+The highest mean quiz score was 8.17 for in-person instruction with handwritten notes. The lowest mean was 5.92 for in-person instruction with no notes.
+
+```{r}
+quiz_data %>%
+  group_by(instruction_mode) %>%
+  summarize(
+    n = n(),
+    mean = mean(quiz_score),
+    sd = sd(quiz_score)
+  )
+```
+The mean quiz score was 6.89 for virtual instruction and 6.86 for in-person instruction. The difference was very small, consistent with the nonsignificant instruction-mode F-test.
+
+```{r}
+quiz_data %>%
+  group_by(note_taking) %>%
+  summarize(
+    n = n(),
+    mean = mean(quiz_score),
+    sd = sd(quiz_score)
+  )
+```
+```{r}
+TukeyHSD(
+  quiz_model,
+  "note_taking",
+  conf.level = 0.95
+)
+```
+Handwritten notes had the highest mean quiz score (7.79), followed by laptop notes (6.75) and no notes (6.08). Tukey’s test found that only handwritten notes versus no notes was statistically significant (p = 0.0014); instruction mode and the interaction effect were not significant.
+
+# 14. Participants
+
+The experiment included 72 participants, with 12 in each of the six treatment combinations. Each participant contributed one independent quiz score, creating a balanced 2 × 3 factorial design for two-way ANOVA. All 72 observations were included in the analysis.
+
+# 15. Compliance
+
+All 72 participants had complete data, with quiz scores within the valid range of 0–10, so all observations were included in the analysis. However, compliance with assigned note-taking conditions could not be verified because the dataset lacked a compliance variable. Future studies should record compliance, technical issues, incomplete sessions, and treatment deviations.

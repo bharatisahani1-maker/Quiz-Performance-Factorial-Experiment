@@ -1,0 +1,73 @@
+student_id,instruction_mode,note_taking,quiz_score
+S001,Virtual,Handwritten,7
+S002,Virtual,Handwritten,8
+S003,Virtual,Handwritten,7
+S004,Virtual,Handwritten,6
+S005,Virtual,Handwritten,6
+S006,Virtual,Handwritten,9
+S007,Virtual,Handwritten,5
+S008,Virtual,Handwritten,8
+S009,Virtual,Handwritten,8
+S010,Virtual,Handwritten,10
+S011,Virtual,Handwritten,7
+S012,Virtual,Handwritten,8
+S013,Virtual,Laptop,8
+S014,Virtual,Laptop,8
+S015,Virtual,Laptop,2
+S016,Virtual,Laptop,6
+S017,Virtual,Laptop,5
+S018,Virtual,Laptop,8
+S019,Virtual,Laptop,9
+S020,Virtual,Laptop,7
+S021,Virtual,Laptop,8
+S022,Virtual,Laptop,8
+S023,Virtual,Laptop,8
+S024,Virtual,Laptop,7
+S025,Virtual,No notes,2
+S026,Virtual,No notes,6
+S027,Virtual,No notes,8
+S028,Virtual,No notes,7
+S029,Virtual,No notes,6
+S030,Virtual,No notes,6
+S031,Virtual,No notes,7
+S032,Virtual,No notes,5
+S033,Virtual,No notes,6
+S034,Virtual,No notes,6
+S035,Virtual,No notes,6
+S036,Virtual,No notes,10
+S037,In-person,Handwritten,6
+S038,In-person,Handwritten,10
+S039,In-person,Handwritten,6
+S040,In-person,Handwritten,8
+S041,In-person,Handwritten,10
+S042,In-person,Handwritten,7
+S043,In-person,Handwritten,9
+S044,In-person,Handwritten,8
+S045,In-person,Handwritten,9
+S046,In-person,Handwritten,10
+S047,In-person,Handwritten,7
+S048,In-person,Handwritten,8
+S049,In-person,Laptop,7
+S050,In-person,Laptop,6
+S051,In-person,Laptop,6
+S052,In-person,Laptop,8
+S053,In-person,Laptop,7
+S054,In-person,Laptop,6
+S055,In-person,Laptop,6
+S056,In-person,Laptop,8
+S057,In-person,Laptop,7
+S058,In-person,Laptop,5
+S059,In-person,Laptop,8
+S060,In-person,Laptop,4
+S061,In-person,No notes,4
+S062,In-person,No notes,8
+S063,In-person,No notes,6
+S064,In-person,No notes,5
+S065,In-person,No notes,8
+S066,In-person,No notes,8
+S067,In-person,No notes,5
+S068,In-person,No notes,3
+S069,In-person,No notes,4
+S070,In-person,No notes,6
+S071,In-person,No notes,8
+S072,In-person,No notes,6
